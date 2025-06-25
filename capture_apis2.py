@@ -1,4 +1,4 @@
-#!/bin/env python3.12
+#!/usr/bin/env python3.12
 
 from pymodbus.client import ModbusTcpClient
 import psycopg2
@@ -134,7 +134,7 @@ def main():
                     insert_data(conn, response3.registers, "apis2_rdx")
                     insert_data(conn, response4.registers, "apis2_sc")
 
-                # Esperar antes de la próxima lectura
+                # Esperar antes de la próxima lectura (ts)
                 time.sleep(1)
 
             except (InterfaceError, OperationalError) as db_error:
