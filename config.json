@@ -1,0 +1,15 @@
+{
+  "db_host": "192.168.x.x",
+  "db_port": 5432,
+  "db_name": "Datos_SCADA",
+  "db_user": "administrador",
+  "db_password": "**********",
+  "modbus_port": 502,
+  "modbus_ip_apis1": "192.168.x.x",
+  "modbus_ip_apis2_pb": "192.168.x.x",
+  "modbus_ip_apis2_li": "192.168.x.x",
+  "modbus_ip_apis2_rdx": "192.168.x.x",
+  "modbus_ip_apis2_sc": "192.168.x.x",
+  "modbus_ip_apis3": "192.168.x.x",
+  "output_file": "/home/administrador/scripts/db_scada.sql"
+}

@@ -1,0 +1,61 @@
+services:
+  bacularis:
+    image: bacularis/bacularis-standalone:5.2.0-alpine
+    container_name: bacula
+    ports:
+      - "9097:9097"  # Intefaz web Bacularis
+      - "9103:9103"  # Storage Daemon
+    volumes:
+      - bacularis_catalog:/var/lib/postgresql/data
+      - ./data/bacula/config:/etc/bacula
+      - bacularis_data:/var/lib/bacula
+      - bacularis_api_config:/var/www/bacularis/protected/vendor/bacularis/bacularis-api/API/Config
+      - bacularis_api_logs:/var/www/bacularis/protected/vendor/bacularis/bacularis-api/API/Logs
+      - bacularis_web_config:/var/www/bacularis/protected/vendor/bacularis/bacularis-web/Web/Config
+      - bacularis_web_logs:/var/www/bacularis/protected/vendor/bacularis/bacularis-web/Web/Logs
+      - ./backups:/var/lib/bacula/archive
+      - ./ssl:/etc/ssl
+      - ./data/bacula/bacularis-nginx.conf:/etc/nginx/http.d/bacularis-nginx.conf
+    restart: unless-stopped
+    environment:
+      TZ: America/Guayaquil
+
+  postgres:
+    image: postgres:17
+    container_name: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      TZ: America/Guayaquil
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:12.0.1
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_USER}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
+      - GF_SERVER_PROTOCOL=https
+      - GF_SERVER_CERT_FILE=/etc/grafana/certs/sistema_cert.pem
+      - GF_SERVER_CERT_KEY=/etc/grafana/certs/sistema_key.pem
+    volumes:
+      - ./data/grafana:/var/lib/grafana
+      - ./ssl:/etc/grafana/certs
+    depends_on:
+      - postgres
+    restart: unless-stopped
+
+volumes:
+  bacularis_catalog:
+  bacularis_data:
+  bacularis_api_config:
+  bacularis_api_logs:
+  bacularis_web_config:
+  bacularis_web_logs:
