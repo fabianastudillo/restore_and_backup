@@ -1,4 +1,4 @@
-#!/bin/env python3.12
+#!/usr/bin/env python3.12
 
 import os
 import json
@@ -43,3 +43,5 @@ except KeyError as e:
 except Exception as e:
     print(f"Ocurrió un error inesperado: {e}", file=sys.stderr)
     sys.exit(1)
+# Si todo fue bien, sale con código de éxito (0)
+sys.exit(0)
