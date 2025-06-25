@@ -130,7 +130,7 @@ def main():
                     if not response3.isError():
                         insert_data(conn, response3.registers, "apis1_ifv3")
 
-                time.sleep(1)
+                time.sleep(0.1165)
 
             except (InterfaceError, OperationalError) as db_error:
                 log.error(f"Error en la lectura/inserción. PostgreSQL podría estar caído: {db_error}")
