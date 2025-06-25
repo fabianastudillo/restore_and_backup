@@ -115,7 +115,7 @@ def main():
                     insert_data(conn, response1.registers, "apis3_motor1")
                     insert_data(conn, response2.registers, "apis3_motor2")
 
-                time.sleep(0.5357)
+                time.sleep(0.5357)    # Intervalo de lectura (1000ms)
 
             except (InterfaceError, OperationalError) as db_error:
                 log.error(f"Error en la lectura/inserción. PostgreSQL podría estar caído: {db_error}")
