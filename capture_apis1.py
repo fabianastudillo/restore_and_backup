@@ -1,4 +1,4 @@
-#!/bin/env python3.12
+#!/usr/bin/env python3.12
 
 from pymodbus.client import ModbusTcpClient
 import psycopg2
